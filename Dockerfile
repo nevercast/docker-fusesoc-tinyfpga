@@ -48,8 +48,7 @@ RUN mkdir "/workspace"
 VOLUME ["/workspace"]
 
 # Python tool installation (fusesoc, tinyprog, apio)
-RUN python3 -m pip install wheel && \
-    python3 -m pip install apio tinyprog fusesoc && \
+RUN python3 -m pip install apio tinyprog fusesoc && \
     fusesoc init -y && \
     fusesoc --config ~/.config/fusesoc/fusesoc.conf library add workspace /workspace && \
     fusesoc library update 
