@@ -37,6 +37,12 @@ RUN git clone https://github.com/cseed/arachne-pnr.git arachne-pnr && \
     make -j$(nproc) && \
     make install
 
+# iVerilog 
+RUN git clone https://github.com/steveicarus/iverilog.git iverilog && \
+    cd iverilog && \
+    sh autoconf.sh && \ 
+    ./configure && make && make install 
+
 # Create workspace before registering with fusesoc
 RUN mkdir "/workspace"
 VOLUME ["/workspace"]
@@ -47,12 +53,6 @@ RUN python3 -m pip install wheel && \
     fusesoc init -y && \
     fusesoc --config ~/.config/fusesoc/fusesoc.conf library add workspace /workspace && \
     fusesoc library update 
-
-# iVerilog 
-RUN git clone https://github.com/steveicarus/iverilog.git iverilog && \
-    cd iverilog && \
-    sh autoconf.sh && \ 
-    ./configure && make && make install 
 
 # Switch to workspace
 WORKDIR "/workspace"
