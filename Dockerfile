@@ -37,6 +37,10 @@ RUN git clone https://github.com/cseed/arachne-pnr.git arachne-pnr && \
     make -j$(nproc) && \
     make install
 
+# Create workspace before registering with fusesoc
+RUN mkdir "/workspace"
+VOLUME ["/workspace"]
+
 # Python tool installation (fusesoc, tinyprog, apio)
 RUN python3 -m pip install wheel && \
     python3 -m pip install apio tinyprog fusesoc && \
@@ -50,9 +54,7 @@ RUN git clone https://github.com/steveicarus/iverilog.git iverilog && \
     sh autoconf.sh && \ 
     ./configure && make && make install 
 
-# Working directory
-RUN mkdir "/workspace"
-VOLUME ["/workspace"]
+# Switch to workspace
 WORKDIR "/workspace"
 
 # Default interpreter
