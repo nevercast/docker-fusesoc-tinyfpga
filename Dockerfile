@@ -10,7 +10,19 @@ RUN apt-get update -y && \
                      flex gawk tcl-dev libffi-dev git mercurial graphviz \
                      xdot pkg-config python python3 python3-pip libftdi-dev \
                      qt5-default python3-dev libboost-all-dev cmake gperf \
-                     libeigen3-dev libelf-dev 
+                     libeigen3-dev libelf-dev autoconf automake autotools-dev \
+                     curl libmpc-dev libmpfr-dev libgmp-dev texinfo libtool \
+                     patchutils bc zlib1g-dev libexpat1-dev
+
+# RISC-V Toolchain 
+RUN mkdir /opt/riscv32i && \
+    git clone https://github.com/riscv/riscv-gnu-toolchain riscv-gnu-toolchain-rv32i && \
+    cd riscv-gnu-toolchain-rv32i && \
+    git checkout 411d134 && \
+    git submodule update --init --recursive && \
+    mkdir build; cd build && \
+    ../configure --with-arch=rv32i --prefix=/opt/riscv32i && \
+    make -j$(nproc)
 
 # IceStorm Tools
 RUN git clone https://github.com/cliffordwolf/icestorm.git icestorm &&  \
