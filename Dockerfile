@@ -51,6 +51,7 @@ VOLUME ["/workspace"]
 RUN python3 -m pip install apio tinyprog fusesoc && \
     fusesoc init -y && \
     fusesoc --config ~/.config/fusesoc/fusesoc.conf library add workspace /workspace && \
+    fusesoc --config ~/.config/fusesoc/fusesoc.conf library add --global tinyfpga_bx_usbserial https://github.com/davidthings/tinyfpga_bx_usbserial.git && \
     fusesoc library update 
 
 # Switch to workspace
