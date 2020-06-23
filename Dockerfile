@@ -66,6 +66,8 @@ RUN python3 -m pip install apio tinyprog fusesoc && \
     fusesoc --config ~/.config/fusesoc/fusesoc.conf library add --global tinyfpga_bx_usbserial https://github.com/davidthings/tinyfpga_bx_usbserial.git && \
     fusesoc library update 
 
+ENV PATH="/opt/riscv32i/bin:${PATH}"
+
 # Switch to workspace
 WORKDIR "/workspace"
 
